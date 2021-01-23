@@ -1,0 +1,72 @@
+@model PhotoAlbums.Models.AlbumViewModel
+
+@{
+    ViewData["Title"] = "Photo Albums";
+}
+<nav>
+    <ul class="pagination">
+        <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page-1)" aria-label="Previous">
+                Previous
+            </a>
+        </li>
+           @for (int i = 1; i <= Model.TotalPages; i++)
+           {
+               <li class="page-item @(Model.Page == i ? "active" : "")">
+                   <a asp-action="Index" asp-route-page="@i" class="page-link" >@i</a>
+               </li>
+           }
+         <li class = "page-item @(!Model.HasNextPage ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page+1)" aria-label="Previous">
+                Next
+            </a>
+        </li>
+    </ul>
+</nav>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayedAlbums[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayedAlbums[0].User.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayedAlbums[0].User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayedAlbums[0].User.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayedAlbums[0].User.Address)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.DisplayedAlbums) {
+        <tr>
+            <td>
+                <img src="@item.ThumbnailURL">
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Address)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
