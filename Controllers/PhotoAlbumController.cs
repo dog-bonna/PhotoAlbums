@@ -53,6 +53,7 @@ namespace PhotoAlbums.Controllers
                 {
                     photos = photoResp.Content.ReadAsAsync<IEnumerable<Photo>>().Result;
                 }
+                item.album.Photos = photos.ToList();
                 item.album.ThumbnailURL = photos.First<Photo>().ThumbnailURL;
             }));
 

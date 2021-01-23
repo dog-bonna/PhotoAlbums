@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+
 using PhotoAlbums.Models;
 
 namespace PhotoAlbums.Models
@@ -12,5 +14,6 @@ namespace PhotoAlbums.Models
         public User User { get; set; }
 
         public string ThumbnailURL { get; set; }
+        public List<Photo> Photos { get; set; }
     }
 }

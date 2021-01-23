@@ -49,10 +49,11 @@
         <tr>
             <td>
                 <img src="@item.ThumbnailURL">
-
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                <a class="accordion-toggle" data-toggle="collapse" data-target="#photos-@(item.Id)">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Name)
@@ -67,6 +68,26 @@
                 @Html.DisplayFor(modelItem => item.User.Address)
             </td>
         </tr>
-}
+        <tr>
+            <td class="hiddenRow" colspan="6">
+                <div class="collapse" id="photos-@item.Id">
+                    <div class="card-body">
+                        <h3>@item.Title</h3>
+                        <div class="container">
+                            @foreach (var photo in item.Photos)
+                            {
+                                <img src="@photo.ThumbnailURL">
+                            }
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+<style>
+    .hiddenRow {
+        padding: 0 !important
+    }
+</style>
