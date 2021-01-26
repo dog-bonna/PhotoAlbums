@@ -23,7 +23,7 @@ namespace PhotoAlbums.Controllers
         private static HttpClient client;
 
         // GET: PhotoAlbum
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string searchString, int page = 1, int pageSize = 10)
         {
             IEnumerable<Album> albums = null;
             IEnumerable<User> users = null;
@@ -39,12 +39,18 @@ namespace PhotoAlbums.Controllers
                 users = await userResp.Content.ReadAsAsync<IEnumerable<User>>();
             }
 
-
             var joinedData = from album in albums
                 join user in users on album.UserId equals user.Id
                 select new {album, user};
 
-            await Task.WhenAll(joinedData.Select(async item => {
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                joinedData = joinedData.Where(s => s.album.Title.Contains(searchString) || s.user.Name.Contains(searchString));
+            }
+
+            var pagedData = joinedData.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+
+            var displayedData = await Task.WhenAll(pagedData.Select(async item => {
                 item.album.User = item.user;
                 IEnumerable<Photo> photos = null;
                 HttpResponseMessage photoResp = await client.GetAsync($"albums/{item.album.Id}/photos");
@@ -54,12 +60,15 @@ namespace PhotoAlbums.Controllers
                 }
                 item.album.Photos = photos.ToList();
                 item.album.ThumbnailURL = photos.First<Photo>().ThumbnailURL;
+                return item.album;
             }));
 
             var albumVM = new AlbumViewModel
             {
-                Albums = albums.ToList(),
-                Page = page
+                TotalCount = joinedData.Count(),
+                DisplayedAlbums = displayedData.ToList(),
+                Page = page,
+                PageSize = pageSize,
             };
 
             return View(albumVM);

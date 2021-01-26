@@ -4,9 +4,16 @@
     ViewData["Title"] = "Photo Albums";
 }
 <nav>
+    <form asp-controller="PhotoAlbum" asp-action="Index" method="get">
+    <p>
+        Album Title or User name: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
     <ul class="pagination">
         <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
             <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page-1)" aria-label="Previous">
+            @* <a class="page-link" href="@Url.Action("Index", {page: Model.Page - 1, searchString: ViewContext.RouteData.Values["searchString"]})" aria-label="Previous"> *@
                 Previous
             </a>
         </li>

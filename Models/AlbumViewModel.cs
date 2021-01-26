@@ -7,30 +7,18 @@ namespace PhotoAlbums.Models
 {
     public class AlbumViewModel
     {
-        public List<Album> Albums { get; set; }
-        public List<Album> DisplayedAlbums {
-            get
-            {
-                return Albums.Skip(PageSize * (Page - 1)).Take(PageSize).ToList();
-            }
-        }
-        public static int PageSize { get; set; }
+        public List<Album> DisplayedAlbums { get; set; }
+        public int PageSize { get; set; }
         public int Page {get; set;}
-        public int TotalCount {
-            get {
-                return Albums.Count;
-            }
-        }
+        public int TotalCount { get; set; }
+
+        // public string SearchString { get; set; }
+
         public int TotalPages {
             get
             {
                 return (int) Math.Ceiling(TotalCount / (double)PageSize);
             }
-        }
-
-        public AlbumViewModel()
-        {
-            PageSize = 10;
         }
 
         public bool HasPreviousPage {
