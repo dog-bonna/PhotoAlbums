@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
@@ -9,8 +10,7 @@ namespace PhotoAlbums.Models
         public string Name { get; set; }
         public string Username { get; set; }
 
-        [DataType(DataType.Url)]
-        public string Website { get; set; }
+        public Uri Website { get; set; }
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
