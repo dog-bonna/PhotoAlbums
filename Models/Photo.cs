@@ -1,6 +1,4 @@
 using System;
-using PhotoAlbums.Models;
-
 namespace PhotoAlbums.Models
 {
     public class Photo

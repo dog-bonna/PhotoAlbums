@@ -1,0 +1,25 @@
+@model PhotoAlbums.Models.User
+
+@{
+    ViewData["Title"] = "User";
+}
+
+<div>
+    <h1>@Html.DisplayFor(model => model.Name)</h1>
+    <hr>
+    <p>@Html.DisplayFor(model => model.Phone)</p>
+    <p>@Html.DisplayFor(model => model.Address)</p>
+    </br>
+    <h2>Company</h2>
+    <hr>
+    <p><b>@Html.DisplayFor(model => model.Company.Name)</b> - <i>@Html.DisplayFor(model => model.Company.CatchPhrase)</i></p>
+    <p>@Html.DisplayFor(model => model.Company.BS)</p>
+    </br>
+    <h2>Posts</h2>
+    <hr>
+    @foreach (var post in Model.Posts)
+    {
+        <h3>@Html.DisplayFor(modelItem => post.Title)</h3>
+        <p>&emsp; @Html.DisplayFor(modelItem => post.Body)</p>
+    }
+</div>

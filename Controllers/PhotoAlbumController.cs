@@ -21,16 +21,15 @@ namespace PhotoAlbums.Controllers
             );
         }
         private static HttpClient client;
-        private static int PageSize = 10;
 
         // GET: PhotoAlbum
         public async Task<IActionResult> Index(int page = 1)
         {
             IEnumerable<Album> albums = null;
             IEnumerable<User> users = null;
-
             HttpResponseMessage albumResp =  await client.GetAsync("albums");
             HttpResponseMessage userResp =  await client.GetAsync("users");
+
             if (albumResp.IsSuccessStatusCode)
             {
                 albums = (await albumResp.Content.ReadAsAsync<IEnumerable<Album>>());

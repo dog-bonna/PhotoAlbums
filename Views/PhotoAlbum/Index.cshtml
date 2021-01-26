@@ -56,7 +56,9 @@
                 </a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Name)
+                <a asp-controller="User" asp-route-id="@item.User.Id">
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Email)
