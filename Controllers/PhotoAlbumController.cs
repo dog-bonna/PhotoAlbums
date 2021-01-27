@@ -69,6 +69,7 @@ namespace PhotoAlbums.Controllers
                 DisplayedAlbums = displayedData.ToList(),
                 Page = page,
                 PageSize = pageSize,
+                SearchString = searchString,
             };
 
             return View(albumVM);

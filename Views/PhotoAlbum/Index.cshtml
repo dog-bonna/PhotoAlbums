@@ -6,25 +6,24 @@
 <nav>
     <form asp-controller="PhotoAlbum" asp-action="Index" method="get">
     <p>
-        Album Title or User name: <input type="text" name="SearchString" />
+        Album Title or User name: <input type="text" asp-for="SearchString" />
         <input type="submit" value="Filter" />
     </p>
 </form>
     <ul class="pagination">
         <li class="page-item @(!Model.HasPreviousPage ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page-1)" aria-label="Previous">
-            @* <a class="page-link" href="@Url.Action("Index", {page: Model.Page - 1, searchString: ViewContext.RouteData.Values["searchString"]})" aria-label="Previous"> *@
+            <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page-1)" asp-route-searchstring="@Model.SearchString" aria-label="Previous">
                 Previous
             </a>
         </li>
            @for (int i = 1; i <= Model.TotalPages; i++)
            {
                <li class="page-item @(Model.Page == i ? "active" : "")">
-                   <a asp-action="Index" asp-route-page="@i" class="page-link" >@i</a>
+                   <a asp-action="Index" asp-route-page="@i" asp-route-searchstring="@Model.SearchString" class="page-link" >@i</a>
                </li>
            }
          <li class = "page-item @(!Model.HasNextPage ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page+1)" aria-label="Previous">
+            <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page+1)" asp-route-searchstring="@Model.SearchString" aria-label="Previous">
                 Next
             </a>
         </li>

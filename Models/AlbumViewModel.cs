@@ -12,7 +12,7 @@ namespace PhotoAlbums.Models
         public int Page {get; set;}
         public int TotalCount { get; set; }
 
-        // public string SearchString { get; set; }
+        public string SearchString { get; set; }
 
         public int TotalPages {
             get
