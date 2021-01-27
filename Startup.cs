@@ -51,7 +51,7 @@ namespace PhotoAlbums
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=PhotoAlbum}/{action=Index}/{id?}");
             });
         }
     }
