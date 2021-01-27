@@ -15,6 +15,7 @@ namespace PhotoAlbums.Controllers
         private static HttpClient client;
         public UserController()
         {
+            /* TODO: Modularize Client code instead of repeating it */
             client = new HttpClient();
             client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com/");
             client.DefaultRequestHeaders.Accept.Clear();

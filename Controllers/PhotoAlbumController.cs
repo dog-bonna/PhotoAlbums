@@ -39,6 +39,9 @@ namespace PhotoAlbums.Controllers
                 users = await userResp.Content.ReadAsAsync<IEnumerable<User>>();
             }
 
+            /* TODO: maybe add access methods in Album for getting Users
+                instead of joining users and albums together.
+             */
             var joinedData = from album in albums
                 join user in users on album.UserId equals user.Id
                 select new {album, user};
@@ -51,6 +54,9 @@ namespace PhotoAlbums.Controllers
             var pagedData = joinedData.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
 
             var displayedData = await Task.WhenAll(pagedData.Select(async item => {
+                /* TODO: maybe add access methods in Album for getting Users and Photos and Album Thumbnail
+                instead of making the requests here.
+             */
                 item.album.User = item.user;
                 IEnumerable<Photo> photos = null;
                 HttpResponseMessage photoResp = await client.GetAsync($"albums/{item.album.Id}/photos");
